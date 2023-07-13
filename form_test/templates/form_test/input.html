@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>input</title>
+</head>
+<body>
+{% block title %}好きな言葉を入力してください。{% endblock %}
+<form method="POST">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">送信</button>
+</form>
+</body>
+</html>
