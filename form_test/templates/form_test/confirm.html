@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>input</title>
+</head>
+<body>
+{% block title %}これでよろしいですか？{% endblock %}
+<form method="POST" action="{% url 'thankyou' %}">{% csrf_token %}
+名前：{{ name }}<br>
+好きな言葉：{{ text }}<br>
+<input type="hidden" name="name" value="{{ name }}">
+<input type="hidden" name="text" value="{{ text }}">
+<button type="submit">送信</button>
+</form>
+</body>
+</html>
