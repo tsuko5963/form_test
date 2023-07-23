@@ -7,11 +7,10 @@
 <body>
 {% block title %}これでよろしいですか？{% endblock %}
 <form method="POST" action="{% url 'thankyou' %}">{% csrf_token %}
-名前：{{ name }}<br>
-好きな言葉：{{ text }}<br>
-<input type="hidden" name="name" value="{{ name }}">
-<input type="hidden" name="text" value="{{ text }}">
+名前：{{ request.session.name }}<br>
+好きな言葉：{{ request.session.text }}<br>
 <button type="submit">送信</button>
 </form>
+<a href="{% url 'input' %}">戻る</a>
 </body>
 </html>
