@@ -24,8 +24,8 @@ class InputView(FormView):
 class ConfirmView(TemplateView):
     template_name = "form_test/confirm.html"
     def post(self, request, *args, **kwargs):
-        self.request.session["name"] = request.POST["name"] 
-        self.request.session["text"] = request.POST["text"] 
+        request.session["name"] = request.POST["name"] 
+        request.session["text"] = request.POST["text"] 
         return render(request, self.template_name, context=self.kwargs)
 
 class ThankyouView(TemplateView):
