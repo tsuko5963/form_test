@@ -5,10 +5,10 @@
 <title>input</title>
 </head>
 <body>
-{% block title %}好きな言葉を入力してください。{% endblock %}
-<form method="POST" action="{% url 'input2' %}">{% csrf_token %}
+<form method="POST" action="{% url 'confirm' %}">{% csrf_token %}
 {{ form.as_p }}
 <button type="submit">送信</button>
 </form>
+<a href="{% url 'input' %}">戻る</a>
 </body>
 </html>

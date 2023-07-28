@@ -8,3 +8,7 @@ class PostModel(models.Model):
 
     def __str__(self):
         return self.name
+
+class DogCatModel(models.Model):
+    dog = models.BooleanField(default = False)
+    cat = models.BooleanField(default = False)
