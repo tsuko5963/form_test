@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from django.views.generic import FormView, TemplateView
 from .forms import PostForm, DogCatForm
+from .models import PostDogCatModel
 
 class InputView(FormView):
     template_name = "form_test/input.html"
@@ -74,6 +75,8 @@ class ThankyouView(TemplateView):
     template_name = "form_test/thankyou.html"
     def post(self, request, *args, **kwargs):
         params = {}
+        param_dog = False
+        param_cat = False
         if 'name' in request.session:
             params["name"] = request.session["name"]
             del request.session["name"]
@@ -82,10 +85,14 @@ class ThankyouView(TemplateView):
             del request.session["text"]
         if 'dog' in request.session:
             del request.session["dog"]
+            param_dog = True
         if 'cat' in request.session:
             del request.session["cat"]
+            param_cat = True
         params["dog"] = request.session["dog_text"]
         params["cat"] = request.session["cat_text"]
         del request.session["dog_text"]
         del request.session["cat_text"]
+        record = PostDogCatModel(name = params["name"], text = params["text"], dog = param_dog, cat = param_cat)
+        record.save()
         return render(request, self.template_name, context=params)
