@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>index</title>
+</head>
+<body>
+{% if post_list  %}
+<table border="1">
+<tr><th class="center">pk</th><th class="center">名前</th><th class="center">好きな言葉</th><th class="center">犬</th><th class="center">猫</th></tr>
+{% for row in post_list %}
+<tr>
+<td><a href="{% url 'detail' row.id %}">{{ row.id }}</a></td>
+<td>{{ row.name }}</td>
+<td>{{ row.text }}</td>
+<td>{{ row.dog }}</td>
+<td>{{ row.cat }}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p>No post</P>
+{% endif %}
+<a href="{% url 'input' %}">入力</a>
+</body>
+</html>

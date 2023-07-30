@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, ListView, DetailView
 from .forms import PostForm, DogCatForm
 from .models import PostDogCatModel
 
@@ -96,3 +96,14 @@ class ThankyouView(TemplateView):
         record = PostDogCatModel(name = params["name"], text = params["text"], dog = param_dog, cat = param_cat)
         record.save()
         return render(request, self.template_name, context=params)
+
+class IndexView(ListView):
+    template_name = "form_test/index.html"
+    context_object_name = "post_list"
+
+    def get_queryset(self):
+        return PostDogCatModel.objects.all()
+
+class DetailView(DetailView):
+    model = PostDogCatModel
+    template_name = "form_test/detail.html"
