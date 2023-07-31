@@ -12,13 +12,16 @@ class InputView(FormView):
     success_url = "/form_test/input2/"
     def get(self, request, *args, **kwargs):
         params = {}
+        session_date = ""
         session_name = ""
         session_text = ""
+        if 'date' in request.session:
+            session_date = request.session["date"]
         if 'name' in request.session:
             session_name = request.session["name"]
         if 'text' in request.session:
             session_text = request.session["text"]
-        initial_dict = dict(name = session_name, text = session_text,)
+        initial_dict = dict(date = session_date, name = session_name, text = session_text,)
         params["form"] = PostForm(data = initial_dict)
         return render(request, self.template_name, context=params)
 
@@ -41,6 +44,7 @@ class Input2View(FormView):
         params = {}
         session_dog = ""
         session_cat = ""
+        request.session["date"] = request.POST["date"] 
         request.session["name"] = request.POST["name"] 
         request.session["text"] = request.POST["text"] 
         if 'dog' in request.session:
@@ -77,6 +81,9 @@ class ThankyouView(TemplateView):
         params = {}
         param_dog = False
         param_cat = False
+        if 'date' in request.session:
+            params["date"] = request.session["date"]
+            del request.session["date"]
         if 'name' in request.session:
             params["name"] = request.session["name"]
             del request.session["name"]
@@ -93,7 +100,7 @@ class ThankyouView(TemplateView):
         params["cat"] = request.session["cat_text"]
         del request.session["dog_text"]
         del request.session["cat_text"]
-        record = PostDogCatModel(name = params["name"], text = params["text"], dog = param_dog, cat = param_cat)
+        record = PostDogCatModel(date = params["date"], name = params["name"], text = params["text"], dog = param_dog, cat = param_cat)
         record.save()
         return render(request, self.template_name, context=params)
 

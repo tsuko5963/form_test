@@ -7,6 +7,7 @@
 <body>
 {% block title %}これでよろしいですか？{% endblock %}
 <form method="POST" action="{% url 'thankyou' %}">{% csrf_token %}
+日付：{{ request.session.date }}<br>
 名前：{{ request.session.name }}<br>
 好きな言葉：{{ request.session.text }}<br>
 犬：{{ request.session.dog_text }}<br>
